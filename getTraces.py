@@ -49,7 +49,7 @@ def save_traces_to_file(content, file_name):
     with open(file_name, "ab") as file:
         file.write(content)
 
-# Function to generate bounding boxes for the given region (Florida)
+# Function to generate bounding boxes for the given region
 def generate_bounding_boxes(min_lon, min_lat, max_lon, max_lat, step=0.25):
     lon = min_lon
     while lon < max_lon:
@@ -86,7 +86,7 @@ def handle_gps_traces_request(bbox, file_name):
         page += 1        
 
 # Main function to pull GPS traces and save to a file
-def pull_gps_traces_for_florida():
+def pull_gps_traces():
 
     # Define bounding box. Currently set for Florida
     min_lon, min_lat = -87.6349, 24.3963
@@ -95,6 +95,7 @@ def pull_gps_traces_for_florida():
     # Generate all 0.25x0.25 degree bounding boxes for seleced area
     bounding_boxes = generate_bounding_boxes(min_lon, min_lat, max_lon, max_lat, step=0.25)
     
+    # Set file name for where raw GPS traces will end up
     file_name = "all_florida_gps_traces.txt"
     
     # Loop through each bounding box and fetch traces
@@ -102,5 +103,5 @@ def pull_gps_traces_for_florida():
         handle_gps_traces_request(bbox, file_name)
 
 if __name__ == "__main__":
-    pull_gps_traces_for_florida()
+    pull_gps_traces()
     log_to_file("Completed pulling all traces")
