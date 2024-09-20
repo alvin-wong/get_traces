@@ -1,0 +1,31 @@
+# Ignore text files
+*.txt
+
+# Ignore CSV files
+*.csv
+
+# Ignore JSON files
+*.json
+
+# Ignore log files
+*.log
+
+# Ignore Excel files
+*.xls
+*.xlsx
+
+# Ignore other data files
+*.dat
+*.db
+*.sql
+
+# Ignore temporary and backup files
+*.tmp
+*.bak
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore hidden system files
+.DS_Store
+Thumbs.db
