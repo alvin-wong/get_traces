@@ -1,5 +1,6 @@
 import requests
 import time
+import os
 import xml.etree.ElementTree as ET
 
 # Log messages to file in case of crashing
@@ -85,6 +86,16 @@ def handle_gps_traces_request(bbox, file_name):
         # Go to the next page
         page += 1        
 
+# Function to create a folder with an incremented name if it already exists
+def create_unique_folder(base_folder_name):
+    folder_name = base_folder_name
+    counter = 1
+    while os.path.exists(folder_name):
+        folder_name = f"{base_folder_name}({counter})"
+        counter += 1
+    os.makedirs(folder_name)
+    return folder_name
+
 # Main function to pull GPS traces and save to a file
 def pull_gps_traces():
 
@@ -96,10 +107,12 @@ def pull_gps_traces():
     bounding_boxes = generate_bounding_boxes(min_lon, min_lat, max_lon, max_lat, step=0.25)
     
     # Set file name for where raw GPS traces will end up
-    file_name = "all_florida_gps_traces.txt"
-    
+    folder_name = create_unique_folder("gps_traces")
+
     # Loop through each bounding box and fetch traces
     for bbox in bounding_boxes:
+        # Generate a unique file name for each bounding box and save it to the folder
+        file_name = os.path.join(folder_name, f"gps_traces_{bbox[0]}_{bbox[1]}_{bbox[2]}_{bbox[3]}.txt")
         handle_gps_traces_request(bbox, file_name)
 
 if __name__ == "__main__":
