@@ -29,3 +29,5 @@
 # Ignore hidden system files
 .DS_Store
 Thumbs.db
+
+.txt
